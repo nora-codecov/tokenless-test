@@ -1,0 +1,8 @@
+.python-version
+*.py[oc]
+__pycache__
+.coverage
+.pytest_cache/
+coverage.xml
+node_modules/
+coverage/
