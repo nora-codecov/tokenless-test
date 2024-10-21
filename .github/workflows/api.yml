@@ -21,7 +21,6 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: codecov/codecov-cli
-        ref: main
     - name: Run Codecov with test branch of CLI
       run: |
         pip install .
