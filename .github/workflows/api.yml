@@ -40,7 +40,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        repository: nora-codecov/codecov-cli
+        repository: codecov/codecov-cli
         ref: nora/2298
     - uses: actions/setup-python@v2
       with:
