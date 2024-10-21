@@ -5,8 +5,8 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    container:
-      image: python:3.10-alpine
+#    container:
+#      image: python:3.10-alpine
     name: Test python API
     steps:
     - uses: actions/checkout@v4
@@ -19,14 +19,16 @@ jobs:
       run: pytest --cov=api.calculator --cov-report=xml
 #    - name: Upload coverage reports to Codecov with GitHub Action
 #      uses: codecov/codecov-action@v4
-    - name: Install build dependencies for Alpine
-      run: apk add --no-cache build-base libffi-dev python3-dev gcc g++
-    - name: Checkout codecov-cli test branch
-      uses: actions/checkout@v4
-      with:
-        repository: codecov/codecov-cli
-        ref: main
+#    - name: Install build dependencies for Alpine
+#      run: apk add --no-cache build-base libffi-dev python3-dev gcc g++
+#    - name: Checkout codecov-cli test branch
+#      uses: actions/checkout@v4
+#      with:
+#        repository: codecov/codecov-cli
+#        ref: main
+    - name: Install codecov-cli
+      run: pip install codecov-cli
     - name: Run Codecov with test branch of CLI
-      run: |
-        pip install .
-        codecovcli -v upload-process
+#      run: |
+#        pip install .
+      run: codecovcli -v upload-process
