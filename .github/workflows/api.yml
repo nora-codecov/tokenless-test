@@ -8,9 +8,6 @@ jobs:
     name: Test python API
     steps:
     - uses: actions/checkout@v4
-      with:
-        repository: codecov/codecov-cli
-        ref: main
     - uses: actions/setup-python@v2
       with:
         python-version: '3.10'
@@ -21,11 +18,14 @@ jobs:
 #    - name: Upload coverage reports to Codecov with GitHub Action
 #      uses: codecov/codecov-action@v4
 #    - name: Install Tree-sitter dependencies
-#      run: sudo apt-get install libtree-sitter-dev
-#    - name: Checkout codecov-cli test branch
-#      uses: actions/checkout@v4
-
+#      run:  pip install tree-sitter==0.20.4
+    - name: Checkout codecov-cli test branch
+      uses: actions/checkout@v4
+      with:
+        repository: codecov/codecov-cli
+        ref: main
     - name: Run Codecov with test branch of CLI
       run: |
+        pip install tree-sitter==0.20.4
         pip install .
         codecovcli -v upload-process
