@@ -1,0 +1,32 @@
+name: API workflow
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Test python API
+    steps:
+      - name: Checkout codecov-cli test branch
+        uses: actions/checkout@v4
+        with:
+          repository: codecov/codecov-cli
+          ref: bd84ee595d111c01e8967f3b382e8a66492fe127
+          submodules: 'true'
+      - name: Run Codecov with test branch of CLI
+        run: |
+          pip install -r requirements.txt
+          pip install .
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+      - name: Install requirements
+        run: pip install -r api/requirements.txt
+      - name: Run tests and collect coverage
+        run: pytest --cov=api.calculator --cov-report=xml
+      - name: Upload to Codecov
+        run: |
+          codecovcli -v create-commit
+          codecovcli -v create-report
+          codecovcli -v do-upload
