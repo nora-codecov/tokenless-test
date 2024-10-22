@@ -7,26 +7,30 @@ jobs:
     runs-on: ubuntu-latest
     name: Test python API
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.10'
-    - name: Install requirements
-      run: pip install -r api/requirements.txt
-    - name: Run tests and collect coverage
-      run: pytest --cov=api.calculator --cov-report=xml
+      - name: Checkout codecov-cli test branch
+        uses: actions/checkout@v4
+        with:
+          repository: codecov/codecov-cli
+          ref: main
+          submodules: 'true'
+      - name: Run Codecov with test branch of CLI
+        run: |
+          pip install -r requirements.txt
+          pip install .
+
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+      - name: Install requirements
+        run: pip install -r api/requirements.txt
+      - name: Run tests and collect coverage
+        run: pytest --cov=api.calculator --cov-report=xml
 #    - name: Upload coverage reports to Codecov with GitHub Action
 #      uses: codecov/codecov-action@v4
 #    - name: Install Tree-sitter dependencies
 #      run:  pip install tree-sitter==0.20.4
-    - name: Checkout codecov-cli test branch
-      uses: actions/checkout@v4
-      with:
-        repository: codecov/codecov-cli
-        ref: main
-    - name: Run Codecov with test branch of CLI
-      run: |
-#        pip install tree-sitter==0.20.4
-        pip install -r requirements.txt
-        pip install .
-        codecovcli -v upload-process
+      - name: Upload to Codecov
+        run: |
+          codecovcli -v upload-process
+    
