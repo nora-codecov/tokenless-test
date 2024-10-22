@@ -27,4 +27,6 @@ jobs:
         run: pytest --cov=api.calculator --cov-report=xml
       - name: Upload to Codecov
         run: |
-          codecovcli -v upload-process
+          codecovcli -v create-commit
+          codecovcli -v create-report
+          codecovcli -v do-upload
