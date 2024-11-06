@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: codecov/codecov-cli
-          ref: bd84ee595d111c01e8967f3b382e8a66492fe127
+          ref: 53289f820ca3f2c05994292aa77d179732d1ed5a
           submodules: 'true'
       - name: Run Codecov with test branch of CLI
         run: |
